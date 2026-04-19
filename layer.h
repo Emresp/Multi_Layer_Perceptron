@@ -1,0 +1,4 @@
+#ifndef MLP_CORE_LAYER_H
+#define MLP_CORE_LAYER_H
+
+#endif //MLP_CORE_LAYER_H
