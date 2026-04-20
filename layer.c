@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "layer.h"
-
+#include "activations.h"
 #include <stdlib.h>
 
 Layer* create_layer(int neurons, int inputs)
@@ -48,7 +48,7 @@ double* foward_pass(Layer* layer,double* inputs)
 
     for(int i=0; i<layer->neuron_count; i++)
     {
-        outputs[i]=inputs[i];//sabiti ekledik
+        outputs[i]=layer->biases[i];
 
         for(int j=0; j<layer->input_count; j++)
         {
@@ -56,7 +56,7 @@ double* foward_pass(Layer* layer,double* inputs)
             outputs[i]=outputs[i]+layer->weights[i][j]*inputs[j];
         }
 
-        //oluşan outputu sigmoid fonksiyonuna yerleştir
+        outputs[i]=sigmoid(outputs[i]);
 
     }
 }
