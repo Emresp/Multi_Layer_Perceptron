@@ -7,4 +7,6 @@ add_executable(MLP_Core main.c
         layer.c
         layer.h
         activations.c
-        activations.h)
+        activations.h
+        losses.c
+        losses.h)
