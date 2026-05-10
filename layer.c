@@ -55,8 +55,7 @@ double* foward_pass(Layer* layer,double* inputs)
             //Ağırlıklar  ile verileri çarp ve topla ve her veri için bunu ayrı ayrı yapıp ayrı outputlar olarak tut
             outputs[i]=outputs[i]+layer->weights[i][j]*inputs[j];
         }
-
         outputs[i]=sigmoid(outputs[i]);
-
     }
+    return outputs;
 }

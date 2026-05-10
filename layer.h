@@ -4,7 +4,7 @@ typedef struct
 {
     double** weights;//Katmanlarda birde fazla nöron olabileceği için çift pointerlı şekilde oluştuyoruz yani bu bir matris oluyor. weights[i][j] gibi i. nöronun j. ağırlığı
     double* biases;  //Sabit sayımızda her nöronda bir tane olacağı için bunuda dizi yapıyourz.
-    double input_count; // Kaç tane girdiği gelicek. Kaç veri var
+    int input_count; // Kaç tane girdiği gelicek. Kaç veri var
     int neuron_count;     //Bir katmanda kaç tane nöron olacağını tutan değişken
 }Layer;
 
