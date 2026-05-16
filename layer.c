@@ -60,3 +60,27 @@ double* foward_pass(Layer* layer,double* inputs)
     }
     return outputs;
 }
+
+void free_layer(Layer* layer)
+{
+    //Verilen Katmanadresinde katman var mı kontrolü. Eğer boşsa fonksiyondan direk çıksın
+    if (layer == NULL)
+    {
+        return;
+    }
+
+    //Sabit sayının adresini temizlme
+    free(layer->biases);
+
+    //Tek tek her nörondaki ağırlığı silmesi için döngü
+    for(int i=0; i<layer->neuron_count; i++)
+    {
+        free(layer->weights[i]);
+    }
+
+    //Ana diziyi silme işlemi
+    free(layer->weights);
+
+    //Genel katmanı silme
+    free(layer);
+}

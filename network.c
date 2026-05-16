@@ -1,4 +1,5 @@
 #include "network.h"
+#include "layer.h"
 #include <stdlib.h>
 
 Network* create_network()
@@ -39,8 +40,7 @@ void free_network(Network* net)
     //Sırasıyla bellekti tüm katmanların yerlerini yıkabilmesi için for döngüsü
     for (int i = 0; i < net->layer_count; i++)
     {
-        //Bu
-        free(net->layers[i]);
+        free_layer(net->layers[i]);
     }
 
     //Dış kısmıda yıktık create_network fonksiyonunda malloc ile tanımlanan yer

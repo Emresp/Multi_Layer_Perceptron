@@ -16,5 +16,9 @@ Layer* create_layer(int neurons, int inputs);
 //Gerekli işlemleri yaparak o katmanın çıktısını üretir. bir dizi adresi döner direk tüm dizi değerini veremeyeceiği için ramdeki adresini vericez
 double* foward_pass(Layer* layer,double* inputs);
 
+// Bir katmanı ve içindeki tüm dinamik bellekleri (ağırlıklar, biaslar) temizler.
+//Tek bir parametre alır Katman adresini
+void free_layer(Layer* layer);
+
 
 #endif //MLP_CORE_LAYER_H
