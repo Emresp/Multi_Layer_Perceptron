@@ -9,4 +9,6 @@ add_executable(MLP_Core main.c
         activations.c
         activations.h
         losses.c
-        losses.h)
+        losses.h
+        network.c
+        network.h)
