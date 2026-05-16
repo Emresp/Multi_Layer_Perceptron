@@ -50,3 +50,26 @@ void free_network(Network* net)
     free(net);
 }
 
+double* forward_network(Network* network,double* inputs)
+{
+    //Dışardan gelen verilerin adresini alır
+    double* current_inputs=inputs;
+
+    //Tüm katmanları sırasıyla döner
+    for (int i = 0; i < network->layer_count; i++)
+    {
+        //Katmanlar forward pass fonksiyonuna girer ve çıktı üretirler döngü sayesinde her katman bunu yapar
+        double* next_inputs= foward_pass(network->layers[i],current_inputs);
+
+        //Önceki katmandan çıktıyı tutabilmek için bellekte yer açmıştık yeni katmana geçildiğinde eskisini silmek için
+        if (current_inputs!=inputs)
+        {
+            free(current_inputs);
+        }
+
+        current_inputs=next_inputs;
+    }
+
+    return current_inputs;
+}
+

@@ -20,5 +20,10 @@ void add_layer(Layer* layer,Network* network);
 //Tek bir parametre alır bu para matre oluşturduğumuz ağın adresidir
 void free_network(Network* net);
 
+//Bu fonksiyon sayesinde bağlantılı olan tüm katmanlar arasında forwad pass işlemi yapabileceğiz.
+//İki adet parametre alır ilki Katmanların bilgisini sakladığımız Network yapısının adresi
+//İkinci Parametre ise ilk katma
+double* forward_network(Network* network,double* inputs);
+
 
 #endif //MLP_CORE_NETWORK_H
