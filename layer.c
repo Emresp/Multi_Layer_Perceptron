@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "layer.h"
 #include "activations.h"
+#include "losses.h"
 #include <stdlib.h>
 
 Layer* create_layer(int neurons, int inputs)
