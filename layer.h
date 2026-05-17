@@ -6,6 +6,9 @@ typedef struct
     double* biases;  //Sabit sayımızda her nöronda bir tane olacağı için bunuda dizi yapıyourz.
     int input_count; // Kaç tane girdiği gelicek. Kaç veri var
     int neuron_count;     //Bir katmanda kaç tane nöron olacağını tutan değişken
+    double* deltas; //Backpropagation yapılırken nöronlardaki değişim miktarını tutmak için
+    double* inputs;
+    double* outputs;
 }Layer;
 
 //Katman oluşturma fonksiyonu
