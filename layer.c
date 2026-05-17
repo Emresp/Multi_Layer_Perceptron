@@ -26,13 +26,11 @@ Layer* create_layer(int neurons, int inputs)
     //Bu sayede hangi ağırlığın ne kadar güncellenmesi gerek ona karar veririz.
     new_layer->deltas=(double*)malloc(neurons*sizeof(double));
 
-    //Kataman dışardan gelen ya da bir önceki katmandan gelen girdi değerleridir
-    //Bunların ayrı olarak tutulmasının sebebi ağırlık güncelleme formülünde gelen girdiye göre ağırlığın güncellenmesidir
-    new_layer->inputs=(double*)malloc(inputs*sizeof(double));
+    new_layer->outputs = (double*)malloc(neurons * sizeof(double));
 
-    //Katmanlardan çıkan değeleri tutabilmek için lazımdır
-    //Bunun sebebi sigmoid fonksiyonun türevini alırken ihtiyacımız olmasıdır.
-    new_layer->outputs=(double*)malloc(neurons*sizeof(double));
+    new_layer->inputs=NULL;
+
+
 
 
     //Matrisi oluşturmaya devam ediyoruz satırlar oluştu şimdi sütunları oluşturcaz yani                    nöron1=w1,w2,w3,w4
@@ -57,21 +55,24 @@ Layer* create_layer(int neurons, int inputs)
 
 double* foward_pass(Layer* layer,double* inputs)
 {
-    //ilk olarak bu fonksiyonda bir dizi adresi döneceğimiz için döneceğimiz dizinin kalıcı olması lazım ondan dolayı malloc ile ramde yer tahsis ediyoruz
-    double* outputs=(double*)malloc(layer->neuron_count*sizeof(double));
+
 
     for(int i=0; i<layer->neuron_count; i++)
     {
-        outputs[i]=layer->biases[i];
+        layer->outputs[i]=layer->biases[i];
 
         for(int j=0; j<layer->input_count; j++)
         {
             //Ağırlıklar  ile verileri çarp ve topla ve her veri için bunu ayrı ayrı yapıp ayrı outputlar olarak tut
-            outputs[i]=outputs[i]+layer->weights[i][j]*inputs[j];
+           layer->outputs[i]=layer->outputs[i]+layer->weights[i][j]*inputs[j];
         }
-        outputs[i]=sigmoid(outputs[i]);
+        layer->outputs[i]=sigmoid(layer->outputs[i]);
     }
-    return outputs;
+
+    layer->inputs=inputs;
+
+
+    return layer->outputs;
 }
 
 void free_layer(Layer* layer)
@@ -85,10 +86,11 @@ void free_layer(Layer* layer)
     //Sabit sayının adresini temizlme
     free(layer->biases);
 
-    //Oluşturduğumuz nöronların bellekti girdi çıktı ve delta değerlini temizlemek için
+    //Oluşturduğumuz nöronların bellekti delta değerini temizlemek için
     free(layer->deltas);
-    free(layer->inputs);
+    //forward_pass aşamsında katmanlarda oluşan çıktıyı temizlemek için
     free(layer->outputs);
+
 
     //Tek tek her nörondaki ağırlığı silmesi için döngü
     for(int i=0; i<layer->neuron_count; i++)
