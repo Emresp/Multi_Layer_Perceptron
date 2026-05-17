@@ -22,6 +22,19 @@ Layer* create_layer(int neurons, int inputs)
     //Nöron sayısı kadar sabit oluştur
     new_layer->biases=(double*)malloc(neurons*sizeof(double));
 
+    //Her nöronun kendi deltası olması lazımdır. bu değer türev alınarak bulunu geri yayılım aşmasında o nöronun ne kadar sonuca ne kadar etkili olduğu hesaplanır
+    //Bu sayede hangi ağırlığın ne kadar güncellenmesi gerek ona karar veririz.
+    new_layer->deltas=(double*)malloc(neurons*sizeof(double));
+
+    //Kataman dışardan gelen ya da bir önceki katmandan gelen girdi değerleridir
+    //Bunların ayrı olarak tutulmasının sebebi ağırlık güncelleme formülünde gelen girdiye göre ağırlığın güncellenmesidir
+    new_layer->inputs=(double*)malloc(inputs*sizeof(double));
+
+    //Katmanlardan çıkan değeleri tutabilmek için lazımdır
+    //Bunun sebebi sigmoid fonksiyonun türevini alırken ihtiyacımız olmasıdır.
+    new_layer->outputs=(double*)malloc(neurons*sizeof(double));
+
+
     //Matrisi oluşturmaya devam ediyoruz satırlar oluştu şimdi sütunları oluşturcaz yani                    nöron1=w1,w2,w3,w4
     //                                                                                                      nöron2=w1,w2,w3,w4
     //sağ tarafta bellirtiğim gibi her satırı gezicez her satırın içine input kadar weights gircez          nöron3=w1,w2,w3,w4
@@ -71,6 +84,11 @@ void free_layer(Layer* layer)
 
     //Sabit sayının adresini temizlme
     free(layer->biases);
+
+    //Oluşturduğumuz nöronların bellekti girdi çıktı ve delta değerlini temizlemek için
+    free(layer->deltas);
+    free(layer->inputs);
+    free(layer->outputs);
 
     //Tek tek her nörondaki ağırlığı silmesi için döngü
     for(int i=0; i<layer->neuron_count; i++)
