@@ -104,3 +104,26 @@ void free_layer(Layer* layer)
     //Genel katmanı silme
     free(layer);
 }
+
+void calculate_output_layer_delta(Layer* layer,double* targets)
+{
+    for(int i=0; i<layer->neuron_count; i++)
+    {
+        //Çıkış katamanında bulunan nöronların delta değeri
+        layer->deltas[i]=(layer->outputs[i]-targets[i])*(sigmoid_derivative(layer->outputs[i]));
+    }
+}
+
+void calculate_hidden_layer_delta(Layer* layer, Layer* next_layer)
+{
+    for(int i=0; i<layer->neuron_count; i++)
+    {
+        double sum=0;
+
+        for (int j=0; j<next_layer->neuron_count; j++)
+        {
+            sum=sum+next_layer->weights[j][i]*next_layer->deltas[j];
+        }
+        layer->deltas[i]=sigmoid_derivative(layer->outputs[i])*sum;
+    }
+}

@@ -24,4 +24,12 @@ double* foward_pass(Layer* layer,double* inputs);
 void free_layer(Layer* layer);
 
 
+//Çıkış katmanının delta değerini hesaplayan formül
+//İki adet parametre alır bunlardan bir katman adresi, Diğeri ise beklenen çıktı
+void calculate_output_layer_delta(Layer* layer,double* targets);
+
+//Gizli katmanlardaki delta değerini bulmak için
+void calculate_hidden_layer_delta(Layer* layer, Layer* next_layer);
+
+
 #endif //MLP_CORE_LAYER_H
