@@ -127,3 +127,18 @@ void calculate_hidden_layer_delta(Layer* layer, Layer* next_layer)
         layer->deltas[i]=sigmoid_derivative(layer->outputs[i])*sum;
     }
 }
+
+void update_weights(Layer* layer, double learning_rate)
+{
+    for (int i=0; i<layer->neuron_count; i++)
+    {
+        //bias güncelledik
+        layer->biases[i]=layer->biases[i]+(learning_rate*layer->deltas[i]);
+
+        for(int j=0; j<layer->input_count; j++)
+        {
+            //ağırlıkları güncelledik
+            layer->weights[i][j]=layer->weights[i][j]+(learning_rate*layer->deltas[i]*layer->inputs[j]);
+        }
+    }
+}

@@ -31,5 +31,7 @@ void calculate_output_layer_delta(Layer* layer,double* targets);
 //Gizli katmanlardaki delta değerini bulmak için
 void calculate_hidden_layer_delta(Layer* layer, Layer* next_layer);
 
+void update_weights(Layer* layer, double learning_rate);
+
 
 #endif //MLP_CORE_LAYER_H
